@@ -1,0 +1,59 @@
+Makine öğrenmesi (machine learning) nedir?
+“Bilgisayarların direkt programlanmadan, kendilerine insan gözlemlerinin bilgi ve veri formunda verilmesiyle, insanlar gibi davranıp öğrenmesi bilimi”dir.
+
+Aslında makine öğrenmesi, insanların öğrenme süreçlerinden esinlenerek geliştirilmiş. Hepimiz bebekken bir köpeğin neye benzediğini bilmiyoruz, dört ayağı olduğunu, iri kulakları olduğunu ve küçük burnu olduğunu görüyoruz, bu şekilde öğrenip bir aslandan ayırt ediyoruz, makine öğrenmesinde de buna “classification” deniyor. Bilgisayarlar da tam olarak bunu yapıyor aslında. Bir şeyleri görüyoruz, fakat gördüğümüz anda “evet bu bir köpek” demiyoruz, görüntü beynimize gidiyor, algılamamız beyinde gerçekleşiyor. Bugün machine learning netflix’teki dizi tahminlerinden bir alışveriş sitesindeki tüketim alışkanlıklarımıza, kameralardaki yüz tanımadan online müşteri destek sistemlerine kadar her yerde karşımıza çıkıyor.
+
+Algoritmaları anlatmadan kısaca veri tipleri ve sınıflandırma ile tahmin arasındaki farka değinelim istiyorum.
+
+Verileri kategorik ve numerik olarak ayrırız. Numerik veriler nicelik belirtir ve süreklidir, kategorik verilerse sınıflanarak ifade edilen verilerdir, nitelik belirtirler. Ülke, cinsiyet, film türü kategorik veriyken yaş, hız, sıcaklık numerik veridir. Sınıflandırma yaparken kategorik veri elde etmeye çalışırız, tahmin algoritmaları ise numerik verilerin tahmini için kullanılır. Aşağıdaki veri setinde cinsiyet kategorik veri, boy, kilo ve yaş numerik veridir. Boy, kilo ve yaşı cinsiyetleri sınıflandırırken kullanırız, cinsiyet, boy ve kiloyu yaş tahmin ederken kullanırız.
+
+Bu yazıda kümelemeye (clustering) yer vermedim, başka bir yazıda ele almayı planlıyorum :)
+
+
+Bu veri setinde insanların cinsiyetleri, yaşları, kiloları ve boyları var. Makine öğrenmesini kullanarak yaşlarını, boylarını ve kilolarını bildiğimiz insanların cinsiyetlerini sınıflandırabiliriz, ya da cinsiyetlerini ve kilolarını bildiğimiz insanların boylarını tahmin edebiliriz. Öncelikle tahmin algoritmalarına bakacağımızdan veriyi görselleştirelim.
+
+
+Bu grafikte insanların cinsiyetlerine göre kilo/yaş aralıklarında nerede olduğunu görüyoruz. Buradan kadınların erkeklerden daha zayıf olduğunu, erkeklerin yaşları arttıkça daha kilolu olduklarını basitçe çıkarabiliriz.
+
+Destek Vektör Makineleri (Support Vector Machines)
+Destek vektör makineleri bir düzlemi ayırarak sınıflandırma yapmamızı sağlar. DVM’ler için ayrı bir dataset hazırladım, görseli aşağıda.
+
+
+Bu problemi nasıl sınıflandırırsınız, bir başka deyişle bu düzlemi nasıl ikiye ayırırsınız? Yukarıdaki veriye bakarak göz kararı yaşı 15 olup kilosu 55 olan birinin cinsiyetini kolayca sınıflandırabiliriz, değil mi?
+
+
+Yukarıdaki görselde sınıflandırma yapmak için kullanılan siyah çizgiye hiperdüzlem, yanındaki boşluklu çizgilere de sınır düzlemi denir. Boşluklu çizgiler arası mesafe bize marjini verir. Veri setine yeni veri girilmesi durumunda, sınıflandırmanın sağlıklı bir şekilde devam etmesi için marjini en geniş yapan hiperdüzlem tercih edilir. Bir veri seti için birden fazla hiperdüzlem çizilebilir, ama en geniş marjini sağlayacak hiperdüzlem seçilir. Özetle, marjinin geniş olması sınıfların arasındaki mesafenin artması anlamına geldiğinden en geniş marjini sağlayan doğruyu seçeriz.
+
+Çekirdek Hilesi (Kernel Trick)
+Peki aşağıdaki gibi doğrusal olarak ayrılamayan bir veri setinde SVM nasıl kullanılabilir?
+
+
+Bir doğruyla ayıramadığımız, doğrusal olmayan durumlarda (non-linear) çekirdek hilesi (kernel trick) kullanılır. Aşağıda yukarıdaki örneğin çekirdek hilesi kullanılarak sınıflandırılmasını görebilirsiniz.
+
+
+Basit Doğrusal Regresyon
+Basit doğrusal regresyon iki değişken arasında doğrusal bir ilişkiyi kurarak tahminde bulunur. Bu hepimizin yıllarca bildiği y = ax + b denkleminde x’i değiştirdiğimizde y’ye ne olur? sorusunu cevaplar. Bunu açıklamak için kilo ve yaşları arasında doğrusal ilişki kuracak şekilde bir veri seti oluşturdum.
+
+
+Burada 138.9 intercept, yani doğrunun y eksenini kestiği nokta, 1.4 de eğimi olur. Yukarıdaki denklemde basitçe x yerine bir yaş yazıp o kişinin boyunu tahmin edebiliriz.
+Lojistik Regresyon
+Lojistik regresyon bir sınıflandırma algoritmasıdır. Lineer regresyonda bir tahmin sonucu 0.2 gibi bir değer elde edebiliriz, lojistik regresyonda ise var-yok, canlı-ölü, geçti-kaldı gibi dikotom verileri 0 ve 1 olarak şifrelediğimizde böyle bir değer elde edilmesi mümkün değildir. Böyle veriler için uygulanan regresyona binary lojistik regresyon denir. Multinomial lojistik regresyon ikiden fazla durumu olan olayların sınıflandırılmasını kapsar, ordinal lojistik regresyon da sıralanabilen -”kötü”, “orta”, “iyi” gibi- durumların sınıflandırılmasını kapsar. Bu yazıda sadece binary lojistik regresyona bakacağız.
+
+Aşağıda kadınları 0, erkekleri 1 olarak şifreledim ve cinsiyetle kilo arasındaki ilişkiye bakmaya çalıştım.
+
+
+Eğer aralarında lineer bir ilişki olsaydı aşağıdaki gibi bir doğru çizebilirdik.
+
+
+Cinsiyetle kilo arasındaki ilişkiye bakarken, cinsiyetin kategorik bir veri olmasından dolayı lineer bir model elde edemiyoruz. Bu ve bunun gibi verilerdeki ilişki lojistik fonksiyonu ya da step (basamak fonksiyonu) ile açıklanabilir.
+
+Koyu renkli gösterilmiş S şeklindeki fonksiyon lojistik fonksiyonu, keskin çizgili fonksiyon ise basamak fonksiyonudur.
+
+
+Buradaki basamak fonksiyonunun atlama yaptığı noktaya bakarak 75 kilodan daha az kilolular kadın, 75 kilodan daha kilolu olanlar erkek diyebiliriz. Özetle lojistik regresyon, sayısal verilerden kategorik veri tahmini için iyi bir algoritmadır.
+
+K-En Yakın Komşu (K-Nearest Neighborhood, KNN)
+KNN algoritması sınıflandırma için kullanılır. Sınıfını öğrenmek istediğimiz bir verinin k tane en yakın komşusuna bakıp, komşularının çoğu hangisiyse o sınıfa koyarız. Aşağıdaki grafikte pembe noktayı sınıflandırmak için beş tane en yakın komşusuna (k=5) bakalım.
+
+
+Sınıflandırmak istediğimiz veriyi yukarıdaki gibi öklit mesafesi kullanarak erkek olarak sınıflandırdık. Öklit mesafesi basitçe iki nokta arasına cetvel koyduğumuzda ölçülen mesafe, yukarıdaki gibi iki boyutlu bir uzayda hesabı yatay ve dikey mesafelerinin toplamının karekökü alınması sonucu bulunuyor, fakat bu çoğu zaman sorun çıkarabiliyor. Burada kilo onar onar artarken yaş beşer beşer artıyor bu yüzden daha farklı bir mesafe ölçüm algoritması daha doğru sonuçlar verebilir.
