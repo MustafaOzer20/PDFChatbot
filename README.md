@@ -36,3 +36,6 @@ Converts a pdf file to vectors and matches it with text that resembles the user'
 3. If Docker is not installed, you can run the main.py file.
 
 <b>The project will not work without applying the 1st item.</b>
+
+## Architect - Mimari
+<img src="https://github.com/MustafaOzer20/PDFChatbot/blob/main/architect/architect.png"></img>
